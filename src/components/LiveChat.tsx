@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+
 import { MessageCircle, X, Send, Minus, Loader2 } from 'lucide-react';
 import gsap from 'gsap';
 import { supabase } from '../lib/supabase';

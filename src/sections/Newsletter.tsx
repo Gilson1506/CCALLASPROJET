@@ -45,6 +45,7 @@ export default function Newsletter() {
     e.preventDefault();
     if (email) {
       try {
+        if (!supabase) throw new Error("Supabase not initialized");
         const { error } = await supabase
           .from('newsletter_subscribers')
           .insert({ email });
