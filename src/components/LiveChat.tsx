@@ -1,4 +1,5 @@
-
+import { useState, useRef, useEffect } from 'react';
+import { MessageCircle, X, Send, Minus } from 'lucide-react';
 import gsap from 'gsap';
 import { supabase } from '../lib/supabase';
 
@@ -47,7 +48,7 @@ export default function LiveChat() {
                 localStorage.setItem('chat_session_id', data.id);
                 return data.id;
             }
-        } catch (err) {
+
             console.error('Error creating chat session:', err);
             return null;
         }
@@ -78,7 +79,7 @@ export default function LiveChat() {
                     setMessages(formatted);
                 }
             }
-        } catch (err) {
+
             console.error('Error fetching messages:', err);
         } finally {
             setIsLoading(false);
@@ -176,7 +177,7 @@ export default function LiveChat() {
             // 4. Update Session Last Message (Optional, for sorting in Admin)
             await supabase.from('chat_sessions').update({ last_message_at: new Date() }).eq('id', currentSessionId);
 
-        } catch (err) {
+
             console.error('Error sending message:', err);
             // Rollback or show error state logic here
             setMessages(prev => prev.map(m => m.id === tempId ? { ...m, text: m.text + ' (Falha ao enviar)', isError: true } : m));
